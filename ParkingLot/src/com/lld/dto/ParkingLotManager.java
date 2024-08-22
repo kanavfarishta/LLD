@@ -27,9 +27,40 @@ public class ParkingLotManager
 		this.parkingLot = new ParkingLotDTO(levels, bikeSpace, carSpace, TruckSpace);
 	}
 	
-	public String addVehicle()
+	private Vehicle vehicleCreator(String type,String licence)
 	{
-		return "";
+		if(type=="Car")
+		{
+			return new Car(licence);
+		}
+		if(type=="Truck")
+		{
+			return new Truck(licence);
+		}
+		if(type=="Bike")
+		{
+			return new Bike(licence);
+		}
+		return null;
+	}
+	
+	public String addVehicle(String type,String licence) throws Exception
+	{
+	
+		Vehicle vehicleCreated = vehicleCreator(type,licence);
+		return parkingLot.parkVehicle(vehicleCreated);
+	}
+	
+	public String removeVehicle(String type,String licence) throws Exception
+	{
+		return parkingLot.removeParkedVehicle(type, licence);
+	}
+	
+	public String getParkingAvailability()
+	{
+		return "Available for Bike : " +parkingLot.getSpotsBikeAvailable()+
+		"Available for Cars : " +parkingLot.getSpotsCarAvailable()+
+		"Available for Trucks : "+parkingLot.getSpotsTruckAvailable();
 	}
 
 }

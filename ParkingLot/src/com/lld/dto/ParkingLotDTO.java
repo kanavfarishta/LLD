@@ -153,7 +153,7 @@ public class ParkingLotDTO
 
 	}
 
-	public String removeParkedVehicle(Vehicle vehicle) throws Exception
+	public String removeParkedVehicle(String type,String licence) throws Exception
 	{
 		if (totalAvailableNoOfParkingSpace() == this.numOfLevels * (this.spotsBike + this.spotsCar + this.spotsTruck))
 		{
@@ -171,7 +171,7 @@ public class ParkingLotDTO
 				for (int level = 0; level < parkedVehicles.size(); level++)
 				{
 					HashMap<String, ArrayList<ParkingSpace>> hMap = parkedVehicles.get(level);
-					ArrayList<ParkingSpace> vehiclesInside = hMap.get(vehicle.type);
+					ArrayList<ParkingSpace> vehiclesInside = hMap.get(type);
 					if (vehiclesInside == null)
 					{
 						continue;
@@ -180,10 +180,10 @@ public class ParkingLotDTO
 					{
 						for (ParkingSpace parkingSpace : vehiclesInside)
 						{
-							if (parkingSpace.getVehicleDetails().equals(vehicle))
+							if (parkingSpace.getVehicleDetails().getLicence().equals(licence))
 							{
 								vehiclesInside.remove(parkingSpace);
-								incrementSpot(vehicle.type);
+								incrementSpot(type);
 								return "Vehicle parked from parking at Level : " + parkingSpace.getLevel()
 										+ "at position : " + parkingSpace.getPosition();
 							}
@@ -250,19 +250,9 @@ public class ParkingLotDTO
 		this.numOfLevels = numOfLevels;
 	}
 
-	public int getSpotsBike()
-	{
-		return spotsBike;
-	}
-
 	public void setSpotsBike(int spotsBike)
 	{
 		this.spotsBike = spotsBike;
-	}
-
-	public int getSpotsCar()
-	{
-		return spotsCar;
 	}
 
 	public void setSpotsCar(int spotsCar)
@@ -270,13 +260,41 @@ public class ParkingLotDTO
 		this.spotsCar = spotsCar;
 	}
 
-	public int getSpotsTruck()
-	{
-		return spotsTruck;
-	}
 
 	public void setSpotsTruck(int spotsTruck)
 	{
 		this.spotsTruck = spotsTruck;
 	}
+
+	public int getSpotsBikeAvailable()
+	{
+		return spotsBikeAvailable;
+	}
+
+	public void setSpotsBikeAvailable(int spotsBikeAvailable)
+	{
+		this.spotsBikeAvailable = spotsBikeAvailable;
+	}
+
+	public int getSpotsCarAvailable()
+	{
+		return spotsCarAvailable;
+	}
+
+	public void setSpotsCarAvailable(int spotsCarAvailable)
+	{
+		this.spotsCarAvailable = spotsCarAvailable;
+	}
+
+	public int getSpotsTruckAvailable()
+	{
+		return spotsTruckAvailable;
+	}
+
+	public void setSpotsTruckAvailable(int spotsTruckAvailable)
+	{
+		this.spotsTruckAvailable = spotsTruckAvailable;
+	}
+	
+	
 }
